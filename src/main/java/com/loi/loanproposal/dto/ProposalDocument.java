@@ -17,15 +17,15 @@ import java.util.Objects;
 @Getter @Setter
 @AllArgsConstructor @Builder
 public class ProposalDocument {
-    private String id;
+    private String proposalId;
     private LocalDateTime proposalDateTime;
     private Customer customer;
-    private Loan proposalLoan;
+    private Loan loan;
     private String rmCode;
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id);
+        return Objects.hash(this.proposalId);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class ProposalDocument {
             return false;
 
         ProposalDocument that = (ProposalDocument) other;
-        return Objects.equals(that.id, this.id);
+        return Objects.equals(that.proposalId, this.proposalId);
     }
 }
