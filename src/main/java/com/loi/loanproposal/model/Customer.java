@@ -4,7 +4,9 @@ import com.loi.loanproposal.enums.CustomerType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -12,8 +14,9 @@ import java.util.Objects;
  * @author Loi Nguyen
  *
  */
+@Component("customer")
 @Getter @Setter
-@AllArgsConstructor @Builder
+@NoArgsConstructor @AllArgsConstructor @Builder
 public class Customer {
     private String code;
     private String name;

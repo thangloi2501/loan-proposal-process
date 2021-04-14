@@ -2,6 +2,10 @@ package com.loi.loanproposal.module.listener;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
 
+/**
+ * @author Loi Nguyen
+ *
+ */
 public class SubmitApplicationAssignmentListener implements TaskListener {
 
         @Override

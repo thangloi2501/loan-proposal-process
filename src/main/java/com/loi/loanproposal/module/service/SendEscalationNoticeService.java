@@ -5,14 +5,18 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
-@Component("notifyingHiringManager")
-public class NotifyingHiringManager implements JavaDelegate {
+/**
+ * @author Loi Nguyen
+ *
+ */
+@Component("sendEscalationNotice")
+public class SendEscalationNoticeService implements JavaDelegate {
 
 	private final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(Logger.class.getName());
 	
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		LOGGER.info("Notifying hiring manager");
+		LOGGER.info("Sent escalation notice");
 	}
 
 }

@@ -73,8 +73,6 @@
 		<dependency>
 			<groupId>org.camunda.bpm.springboot</groupId>
 			<artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-			<!-- Adjust if you want to use EE: <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId> 
-				Make sure you also use an EE version of Camunda - see above -->
 			<version>${camunda-springboot.version}</version>
 		</dependency>
 

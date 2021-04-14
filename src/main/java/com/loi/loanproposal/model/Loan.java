@@ -4,14 +4,22 @@ import com.loi.loanproposal.enums.LoanType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+/**
+ * @author Loi Nguyen
+ *
+ */
+@Component("loan")
 @Getter @Setter
+@NoArgsConstructor
 @AllArgsConstructor @Builder
 public class Loan {
-    private String id; //L.YYYYMMDD.XXX
+    private String id; //L.YYYYMMDD.UUID
     private Long amount; //VND
     private Long term; //in months
     private Double interestRate;
