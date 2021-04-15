@@ -171,65 +171,65 @@
 		</resources>
 		
 		<plugins>
-<!--			<plugin>-->
-<!--				<groupId>com.github.eirslett</groupId>-->
-<!--				<artifactId>frontend-maven-plugin</artifactId>-->
-<!--				<version>${frontend-maven-plugin.version}</version>-->
-<!--				<configuration>-->
-<!--					<workingDirectory>src/main/resources/static/reactform</workingDirectory>-->
-<!--				</configuration>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>install node and yarn</id>-->
-<!--						<goals>-->
-<!--							<goal>install-node-and-yarn</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<nodeVersion>${node.version}</nodeVersion>-->
-<!--							<yarnVersion>${yarn.version}</yarnVersion>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--					<execution>-->
-<!--						<id>yarn install</id>-->
-<!--						<goals>-->
-<!--							<goal>yarn</goal>-->
-<!--						</goals>-->
-<!--						<phase>generate-resources</phase>-->
-<!--					</execution>-->
-<!--					<execution>-->
-<!--						<id>yarn build</id>-->
-<!--						<goals>-->
-<!--							<goal>yarn</goal>-->
-<!--						</goals>-->
-<!--						<phase>compile</phase>-->
-<!--						<configuration>-->
-<!--							<arguments>build</arguments>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>${frontend-maven-plugin.version}</version>
+				<configuration>
+					<workingDirectory>src/main/resources/static/reactform</workingDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and yarn</id>
+						<goals>
+							<goal>install-node-and-yarn</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>${node.version}</nodeVersion>
+							<yarnVersion>${yarn.version}</yarnVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>yarn install</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>yarn build</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<arguments>build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-<!--			<plugin>-->
-<!--				<artifactId>maven-resources-plugin</artifactId>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>copy-resources</id>-->
-<!--						<goals>-->
-<!--							<goal>copy-resources</goal>-->
-<!--						</goals>-->
-<!--						<phase>compile</phase>-->
-<!--						<configuration>-->
-<!--							<outputDirectory>${basedir}/target/classes/static/forms/build</outputDirectory>-->
-<!--							<resources>-->
-<!--								<resource>-->
-<!--									<directory>src/main/resources/static/reactform/build</directory>-->
-<!--									<filtering>true</filtering>-->
-<!--								</resource>-->
-<!--							</resources>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/static/forms/build</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources/static/reactform/build</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

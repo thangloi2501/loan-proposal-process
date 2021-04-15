@@ -1,5 +1,6 @@
 package com.loi.loanproposal.module.service;
 
+import com.loi.loanproposal.enums.Decision;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -16,7 +17,7 @@ public class TestService implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         log.info("Test Service:" + execution.getVariable("proposalId"));
 
-        execution.setVariable("rmDecision", "DECLINED");
+        execution.setVariable("rmDecision", Decision.APPROVED);
     }
 
 }
