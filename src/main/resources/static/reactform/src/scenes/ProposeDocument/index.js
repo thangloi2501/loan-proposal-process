@@ -48,7 +48,7 @@ function ProposeDocumentHook(props) {
                                             handleCustomerNameChange   		=   {props.handleCustomerNameChange}
                                             handleCustomerPhoneNumberChange =   {props.handleCustomerPhoneNumberChange}
                                             handleCustomerAddressChange		=   {props.handleCustomerAddressChange} 
-											handleCustomerTypeChange		=	{props.handleCustomerTypeChange}
+											handleCustomerTypeSelect		=	{props.handleCustomerTypeSelect}
 											disabled={false}
 											/>
                         </Grid>
@@ -58,7 +58,7 @@ function ProposeDocumentHook(props) {
                                             handleLoanAmountChange    		=   {props.handleLoanAmountChange}
                                             handleLoanTermChange    		=   {props.handleLoanTermChange}
                                             handleLoanInterestRateChange    =   {props.handleLoanInterestRateChange} 
-											handleLoanTypeChange    		=   {props.handleLoanTypeChange} 											
+											handleLoanTypeSelect	   		=   {props.handleLoanTypeSelect} 											
 											disabled={false}
 											/>
                         </Grid>
@@ -82,144 +82,134 @@ export default class ProposeDocument extends React.Component{
 		this.backUrl = props.backUrl;
         this.state = {
             taskId: props.taskId,
+			proposalId: props.proposalId,
+			proposalDateTime: props.proposalDateTime,
 			isLoaded: false,
 			customer: {value: { code: "", name: "", phoneNumber: "", address: "", type: "0"}},
 			loan: {value: { id: "", amount: 0, term: 0, interestRate: 0.0, type: "0"}}
         };
 
-        this.handleCustomerCodeChange 	= 	this.handleCustomerCodeChange.bind(this);
-		this.handleCustomerNameChange 	= 	this.handleCustomerNameChange.bind(this);
-		this.handleCustomerPhoneNumberChange 		= 	this.handleCustomerPhoneNumberChange.bind(this);
-		this.handleCustomerAddressChange 		= 	this.handleCustomerAddressChange.bind(this);
-		this.handleCustomerTypeChange 		= 	this.handleCustomerTypeChange.bind(this);
+		this.handleCustomerCodeChange 			= this.handleCustomerCodeChange.bind(this);
+		this.handleCustomerNameChange 			= this.handleCustomerNameChange.bind(this);
+		this.handleCustomerPhoneNumberChange 	= this.handleCustomerPhoneNumberChange.bind(this);
+		this.handleCustomerAddressChange 		= this.handleCustomerAddressChange.bind(this);
+		this.handleCustomerTypeSelect 			= this.handleCustomerTypeSelect.bind(this);
 
-		this.handleSubmitClick 			= 	this.handleSubmitClick.bind(this);
-		this.handleEmpNumChange 		= 	this.handleEmpNumChange.bind(this);
-		this.handleRequesterChange 		= 	this.handleRequesterChange.bind(this);
-		this.handleJobTitleChange 		= 	this.handleJobTitleChange.bind(this);
-		this.handleStartDateChange 		= 	this.handleStartDateChange.bind(this);
-		this.handleCancelClick 			= 	this.handleCancelClick.bind(this);
-		this.handleSaveClick 			= 	this.handleSaveClick.bind(this);
-		this.handleSubmitClick 			= 	this.handleSubmitClick.bind(this);
-		this.handleEducationSelect 		= 	this.handleEducationSelect.bind(this);
-		this.handleSkillSelect 			= 	this.handleSkillSelect.bind(this);
-		this.handleExperienceSelect		= 	this.handleExperienceSelect.bind(this);
+		this.handleLoanIdChange 				= this.handleLoanIdChange.bind(this);
+		this.handleLoanAmountChange 			= this.handleLoanAmountChange.bind(this);
+		this.handleLoanTermChange 				= this.handleLoanTermChange.bind(this);
+		this.handleLoanInterestRateChange 		= this.handleLoanInterestRateChange.bind(this);
+		this.handleLoanTypeSelect 				= this.handleLoanTypeSelect.bind(this);
+
+		this.handleSubmitClick 	= this.handleSubmitClick.bind(this);
+		this.handleCancelClick	= this.handleCancelClick.bind(this);
+		this.handleSaveClick	= this.handleSaveClick.bind(this);
 	}
 
-	handleEducationSelect(checked){
-		const qualification = this.state.qualification;
-		let educations = qualification.value.educations.slice();
-		educations = checked;
-		qualification.value.educations = educations;
+	handleCustomerCodeChange(event) {
+		const customer = this.state.customer;
+		customer.value.code = event.target.value;
+		this.setState(
+			{ customer: customer }
+		)
+	}
+	
+	handleCustomerNameChange(event) {
+		const customer = this.state.customer;
+		customer.value.name = event.target.value;
+		this.setState(
+			{ customer: customer }
+		)
+	}
+	
+	handleCustomerPhoneNumberChange(event) {
+		const customer = this.state.customer;
+		customer.value.phoneNumber = event.target.value;
+		this.setState(
+			{ customer: customer }
+		)
+	}
+	
+	handleCustomerAddressChange(event) {
+		const customer = this.state.customer;
+		customer.value.address = event.target.value;
+		this.setState(
+			{ customer: customer }
+		)
+	}
+
+	handleCustomerTypeSelect(checked){
+		const customer = this.state.customer;
+		customer.value.type = checked;
 		this.setState({
-			qualification: qualification
-		})
-		
-	}
-
-	handleSkillSelect(checked){
-		const qualification = this.state.qualification;
-		qualification.value.skills = checked;
-		this.setState({
-			qualification: qualification
+			customer: customer
 		})
 	}
 
-	handleExperienceSelect(checked){
-		console.log("exp: ", checked);
-		const qualification = this.state.qualification;
-		qualification.value.experience = checked;
-		this.setState({
-			qualification: qualification
-		})
-	}
-
-    handleEmpTypeChange(event) {
-		const requisition = this.state.requisition;
-		requisition.value.empType = event.target.value;
+	// ----------------------------	
+	handleLoanIdChange(event) {
+		const loan = this.state.loan;
+		loan.value.id = event.target.value;
 		this.setState(
-			{ requisition: requisition }
+			{ loan: loan }
 		)
 	}
 
-	handleDepartmentChange(event) {
-		const requisition = this.state.requisition;
-		requisition.value.department = event.target.value;
+	handleLoanAmountChange(event) {
+		const loan = this.state.loan;
+		loan.value.amount = event.target.value;
 		this.setState(
-			{ requisition: requisition }
+			{ loan: loan }
+		)
+	}
+	
+	handleLoanTermChange(event) {
+		const loan = this.state.loan;
+		loan.value.term = event.target.value;
+		this.setState(
+			{ loan: loan }
+		)
+	}
+	
+	handleLoanInterestRateChange(event) {
+		const loan = this.state.loan;
+		loan.value.interestRate = event.target.value;
+		this.setState(
+			{ loan: loan }
+		)
+	}
+	
+	handleLoanTypeSelect(checked){
+		const loan = this.state.loan;
+		loan.value.type = checked;
+		this.setState(
+			{ loan: loan }
 		)
 	}
 
-	handleLocationChange(event) {
-		const requisition = this.state.requisition;
-		requisition.value.location = event.target.value;
-		this.setState(
-			{ requisition: requisition }
-		)
-	}
-
-	handlePositionChange(event) {
-		const position = this.state.position;
-		position.value.positionType = event.target.value;
-		this.setState(
-			{ position: position }
-		)
-	}
-
-	handleEmpNumChange(event) {
-		const requisition = this.state.requisition;
-		requisition.value.empNum = event.target.value;
-		this.setState(
-			{ requisition: requisition }
-		)
-	}
-
-	handleRequesterChange(event) {
-		const requisition = this.state.requisition;
-		requisition.value.requester = event.target.value;
-		this.setState(
-			{ requisition: requisition }
-		)
-	}
-
-	handleJobTitleChange(event) {
-		const position = this.state.position;
-		position.value.jobTitle = event.target.value;
-		this.setState(
-			{ position: position }
-		)
-	}
-
-	handleStartDateChange(date) {
-		const requisition = this.state.requisition;
-		requisition.value.date = date || null;
-		this.setState(
-			{ requisition: requisition }
-		)
-	};
-
+	// -----------------------------
 	handleCancelClick() {
 		window.location.replace(this.backUrl)
 	}
 
 	handleSubmitClick(event) {
-		console.log("requisition: ", this.state.requisition);
-		console.log("position: ", this.state.position);
-		console.log("qualification: ", this.state.qualification);
-		const requisition = this.state.requisition;
-		const qualification = this.state.qualification;
-		const position = this.state.position;
-		requisition.value = JSON.stringify(requisition.value);
-		qualification.value = JSON.stringify(qualification.value);
-		position.value = JSON.stringify(position.value);
+		console.log("customer: ", this.state.customer);
+		console.log("loan: ", this.state.loan);
+		const proposalId = this.state.proposalId;
+		const proposalDateTime = this.state.proposalDateTime;
+		const customer = this.state.customer;
+		const loan = this.state.loan;
+		customer.value = JSON.stringify(loan.value);
+		loan.value = JSON.stringify(loan.value);
 
 		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/complete`, {
 			method: 'POST',
 			body: JSON.stringify({
 				"variables": {
-					"requisition": requisition,
-					"position": position,
-					"qualification": qualification,
+					"proposalId": proposalId,
+					"proposalDateTime": proposalDateTime,
+					"customer": customer,
+					"loan": loan
 				}
 			}),
 			headers: {
@@ -239,19 +229,20 @@ export default class ProposeDocument extends React.Component{
 	}
 
 	handleSaveClick() {
-		const requisition = this.state.requisition;
-		const qualification = this.state.qualification;
-		const position = this.state.position;
-		requisition.value = JSON.stringify(requisition.value);
-		qualification.value = JSON.stringify(qualification.value);
-		position.value = JSON.stringify(position.value);
+		const proposalId = this.state.proposalId;
+		const proposalDateTime = this.state.proposalDateTime;
+		const customer = this.state.customer;
+		const loan = this.state.loan;
+		customer.value = JSON.stringify(loan.value);
+		loan.value = JSON.stringify(loan.value);
 		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/localVariables`, {
 			method: 'POST',
 			body: JSON.stringify({
 				"modifications": {
-					"requisition": requisition,
-					"position": position,
-					"qualification": qualification
+					"proposalId": proposalId,
+					"proposalDateTime": proposalDateTime,
+					"customer": customer,
+					"loan": loan
 				}
 			}),
 			headers: {
@@ -275,17 +266,19 @@ export default class ProposeDocument extends React.Component{
 			.then(
 				(result) => {
 					console.log("result: ", result);
-					const requisition = result.requisition ? result.requisition : {value: { empType: "", department: "", location: "" }};
-					console.log("After parsing requisition: ", requisition);
-					const position = result.position ? result.position : {value:{ positionType: "", replacement: {} }};
-					console.log("After parsing position: ", position);
-					const qualification = result.qualification ? result.qualification : {value: {educations:[], skills:[], experience: "l0"}};
+					const customer = result.customer ? result.customer : {value: { code: "", name: "", phoneNumber: "", address: "", type: "0"}};
+					console.log("After parsing customer: ", customer);
+					const loan = result.loan ? result.loan : {value:{ id: "", amount: 0, term: 0, interestRate: 0.0, type: "0"}};
+					console.log("After parsing loan: ", loan);
+					const proposalId = result.proposalId ? result.proposalId : "";
+					const proposalDateTime = result.proposalDateTime ? result.proposalDateTime : "";
 
 					this.setState({
 						isLoaded: true,
-						requisition: requisition,
-						position: position,
-						qualification: qualification
+						proposalId: proposalId,
+						proposalDateTime: proposalDateTime,
+						customer: customer,
+						loan: loan
 					});
 				},
 				(error) => {
