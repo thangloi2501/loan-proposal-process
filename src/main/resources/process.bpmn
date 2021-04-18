@@ -6,6 +6,7 @@
         <camunda:property name="proposalId" />
         <camunda:property name="proposalDateTime" />
         <camunda:property name="processData" />
+        <camunda:property name="isDocumentSufficient" />
       </camunda:properties>
     </bpmn:extensionElements>
     <bpmn:participant id="loan_proposal_process" name="Loan Proposal Process" processRef="loan-proposal-process" />

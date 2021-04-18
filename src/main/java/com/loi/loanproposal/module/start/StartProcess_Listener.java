@@ -39,7 +39,8 @@ public class StartProcess_Listener implements ExecutionListener {
                                                                    .processId(execution.getProcessInstanceId())
                                                                    .rmDecision(Decision.NO.getValue())
                                                                    .build())
-                                           .serializationDataFormat(Variables.SerializationDataFormats.JSON).create();
+                                           .serializationDataFormat(Variables.SerializationDataFormats.JAVA)
+                                           .create();
 
         execution.setVariable("processData", processData);
 

@@ -257,7 +257,7 @@ export default class ProposeDocument extends React.Component{
 					"loan": loan
 				}
 			}),
-			mode:'no-cors',
+			// mode:'no-cors',
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
 			}
@@ -295,7 +295,7 @@ export default class ProposeDocument extends React.Component{
 					"loan": loan
 				}
 			}),
-			mode:'no-cors',
+			// mode:'no-cors',
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
 			}
@@ -321,15 +321,9 @@ export default class ProposeDocument extends React.Component{
 					console.log("After parsing customer: ", customer);
 					const loan = result.loan ? result.loan : {value:{ id: "", amount: 0, term: 0, interestRate: 0.0, type: "0"}};
 					console.log("After parsing loan: ", loan);
-					const _proposalId = result.proposalId ? result.proposalId : "";
-					const proposalId = {}
-					proposalId.value = _proposalId.value
-					const _proposalDateTime = result.proposalDateTime ? result.proposalDateTime : "";
-					const proposalDateTime = {}
-					proposalDateTime.value = _proposalDateTime.value
-					const _processData = result.processData ? result.processData : { value: { processId: "", rmCode: "", rmDecision: "", rmComment: "", rmManager1Code: "", rmManager1Decision: "", rmManager1Comment: "", rmManager2Code: "", rmManager2Decision: "", rmManager2Comment: "" } }
-					const processData = {}
-					processData.value = _processData.value
+					const proposalId = result.proposalId ? result.proposalId : "";
+					const proposalDateTime = result.proposalDateTime ? result.proposalDateTime : "";
+					const processData = result.processData ? result.processData : { value: { processId: "", rmCode: "", rmDecision: "", rmComment: "", rmManager1Code: "", rmManager1Decision: "", rmManager1Comment: "", rmManager2Code: "", rmManager2Decision: "", rmManager2Comment: "" } }
 					console.log("After parsing process data: ", processData);
 
 					this.setState({

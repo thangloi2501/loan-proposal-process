@@ -28,20 +28,20 @@ public class ProcessData implements Serializable {
     private String rmManager2Decision;
     private String rmManager2Comment;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.processId);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other)
-            return true;
-
-        if (!(other instanceof ProcessData))
-            return false;
-
-        ProcessData that = (ProcessData) other;
-        return Objects.equals(that.processId, this.processId);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(this.processId);
+//    }
+//
+//    @Override
+//    public boolean equals(Object other) {
+//        if (this == other)
+//            return true;
+//
+//        if (!(other instanceof ProcessData))
+//            return false;
+//
+//        ProcessData that = (ProcessData) other;
+//        return Objects.equals(that.processId, this.processId);
+//    }
 }

@@ -1,4 +1,6 @@
 package com.loi.loanproposal.module.proposedocument;
+import com.loi.loanproposal.dto.ProcessData;
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
 
@@ -6,6 +8,7 @@ import org.camunda.bpm.engine.delegate.TaskListener;
  * @author Loi Nguyen
  *
  */
+@Slf4j
 public class ProposeDocument_CompleteListener implements TaskListener {
 
         @Override
@@ -46,6 +49,13 @@ public class ProposeDocument_CompleteListener implements TaskListener {
                 // delegateTask.setVariableLocal("qualification", customerDataValue2);
                 // delegateTask.setVariableLocal("position", customerDataValue3);
 
-                delegateTask.setVariableLocal("processData", delegateTask.getVariable("processData"));
+//                log.info(((ProcessData) delegateTask.getVariableLocal("processData")).getRmDecision());
+//                log.info(((ProcessData) delegateTask.getVariable("processData")).getRmDecision());
+//
+//                log.info(((ProcessData) delegateTask.getVariableLocalTyped("processData").getValue()).getRmDecision());
+//                log.info(((ProcessData) delegateTask.getVariableTyped("processData").getValue()).getRmDecision());
+
+//                delegateTask.setVariableLocal("processData", (ProcessData) delegateTask.getVariable("processData"));
+//                delegateTask.setVariable("processData", (ProcessData) delegateTask.getVariable("processData"));
         }
 }
