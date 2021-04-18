@@ -1,4 +1,4 @@
-package com.loi.loanproposal.module.service;
+package com.loi.loanproposal.module.informcustomer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component("informCustomerService")
 @Slf4j
-public class InformCustomerService implements JavaDelegate {
+public class InformCustomer_Service implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         log.info(String.format("Inform Customer Result: %s %s %s",

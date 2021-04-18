@@ -5,27 +5,27 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author Loi Nguyen
- *
  */
 @Getter @Setter
 @AllArgsConstructor @Builder
-public class ProcessData {
+public class ProcessData implements Serializable {
     private String processId;
 
     private String rmCode;
-    private Long   rmDecision;
+    private String rmDecision;
     private String rmComment;
 
     private String rmManager1Code;
-    private Long   rmManager1Decision;
+    private String rmManager1Decision;
     private String rmManager1Comment;
 
     private String rmManager2Code;
-    private Long   rmManager2Decision;
+    private String rmManager2Decision;
     private String rmManager2Comment;
 
     @Override

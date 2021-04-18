@@ -25,24 +25,24 @@ export default class MasterDataService{
         );
     }
 
-    fetchPositionType(){
+    fetchDecisionType(){
         return [
             {
-                value: "n",
-                label: "New"
+                value: "Y",
+                label: "Yes"
             },
             {
-                value: "e",
-                label: "Existing"
+                value: "N",
+                label: "No"
             },
         ]
     }
 
-    fetchCustomerType(){
+    fetchCustomerType(callback){
         this.fetchMasterData('customer-types', callback);
     }
 
-    fetchLoanType(){
+    fetchLoanType(callback){
         this.fetchMasterData('loan-types', callback);
     }
 }

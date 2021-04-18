@@ -1,7 +1,8 @@
 import React from 'react';
 import LoanPanel from '../../components/LoanPanel';
 import CustomerPanel from '../../components/CustomerPanel';
-import { ExpansionPanel, Typography, Grid, Button, ExpansionPanelSummary, ExpansionPanelDetails} from '@material-ui/core';
+import ApprovalPanel from '../../components/ApprovalPanel';
+import { ExpansionPanel, Typography, Grid, Button, ExpansionPanelSummary, ExpansionPanelDetails, TextField, Menu, MenuItem} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ActionButtonSection from '../../components/ActionButtonSection';
 
@@ -9,6 +10,9 @@ import ActionButtonSection from '../../components/ActionButtonSection';
 const useStyles = makeStyles(theme => ({
 	root: {
 		width: '100%',
+	},
+	menu: {
+		width: 200,
 	},
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
@@ -38,7 +42,7 @@ function ProposeDocumentHook(props) {
 				<ExpansionPanelDetails>
                     <Grid container>
                         <Grid item xs={12}>
-							<Typography className={classes.label}>Proposal ID: {props.proposalId}</Typography>
+							<Typography className={classes.label}>Proposal ID: 	 {props.proposalId}</Typography>
 							<Typography className={classes.label}>Proposal Time: {props.proposalDateTime}</Typography>
 						</Grid>
 
@@ -62,6 +66,13 @@ function ProposeDocumentHook(props) {
 											disabled={false}
 											/>
                         </Grid>
+						<Grid item xs={12}>
+							<ApprovalPanel  approval				        =	{props.processData.rmDecision}
+											comment				            =	{props.processData.rmComment}
+											handleApprovalCommentChange	    =	{props.handleApprovalCommentChange}
+											handleApprovalSelect	        =	{props.handleApprovalSelect}
+							/>
+						</Grid>
                     </Grid>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
@@ -82,8 +93,9 @@ export default class ProposeDocument extends React.Component{
 		this.backUrl = props.backUrl;
         this.state = {
             taskId: props.taskId,
-			proposalId: props.proposalId,
-			proposalDateTime: props.proposalDateTime,
+			proposalId: "",
+			proposalDateTime: "",
+			processData: { value: { processId: "", rmCode: "", rmDecision: "", rmComment: "", rmManager1Code: "", rmManager1Decision: "", rmManager1Comment: "", rmManager2Code: "", rmManager2Decision: "", rmManager2Comment: "" } },
 			isLoaded: false,
 			customer: {value: { code: "", name: "", phoneNumber: "", address: "", type: "0"}},
 			loan: {value: { id: "", amount: 0, term: 0, interestRate: 0.0, type: "0"}}
@@ -100,6 +112,9 @@ export default class ProposeDocument extends React.Component{
 		this.handleLoanTermChange 				= this.handleLoanTermChange.bind(this);
 		this.handleLoanInterestRateChange 		= this.handleLoanInterestRateChange.bind(this);
 		this.handleLoanTypeSelect 				= this.handleLoanTypeSelect.bind(this);
+
+		this.handleApprovalSelect				= this.handleApprovalSelect.bind(this);
+		this.handleApprovalCommentChange		= this.handleApprovalCommentChange.bind(this);
 
 		this.handleSubmitClick 	= this.handleSubmitClick.bind(this);
 		this.handleCancelClick	= this.handleCancelClick.bind(this);
@@ -143,6 +158,23 @@ export default class ProposeDocument extends React.Component{
 		customer.value.type = checked;
 		this.setState({
 			customer: customer
+		})
+	}
+
+	// ----------------------------	
+	handleApprovalCommentChange(event) {
+		const processData = this.state.processData;
+		processData.value.rmComment = event.target.value;
+		this.setState(
+			{ processData: processData }
+		)
+	}
+
+	handleApprovalSelect(checked){
+		const processData = this.state.processData;
+		processData.value.rmDecision = checked;
+		this.setState({
+			processData: processData
 		})
 	}
 
@@ -197,10 +229,22 @@ export default class ProposeDocument extends React.Component{
 		console.log("loan: ", this.state.loan);
 		const proposalId = this.state.proposalId;
 		const proposalDateTime = this.state.proposalDateTime;
+		const processData = this.state.processData;
 		const customer = this.state.customer;
 		const loan = this.state.loan;
-		customer.value = JSON.stringify(loan.value);
+		customer.value = JSON.stringify(customer.value);
 		loan.value = JSON.stringify(loan.value);
+		processData.value = JSON.stringify(processData.value);
+
+		console.log("request body:", JSON.stringify({
+			"variables": {
+				"proposalId": proposalId,
+				"proposalDateTime": proposalDateTime,
+				"processData": processData,
+				"customer": customer,
+				"loan": loan
+			}
+		}))
 
 		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/complete`, {
 			method: 'POST',
@@ -208,10 +252,12 @@ export default class ProposeDocument extends React.Component{
 				"variables": {
 					"proposalId": proposalId,
 					"proposalDateTime": proposalDateTime,
+					"processData": processData,
 					"customer": customer,
 					"loan": loan
 				}
 			}),
+			mode:'no-cors',
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
 			}
@@ -231,20 +277,25 @@ export default class ProposeDocument extends React.Component{
 	handleSaveClick() {
 		const proposalId = this.state.proposalId;
 		const proposalDateTime = this.state.proposalDateTime;
+		const processData = this.state.processData;
 		const customer = this.state.customer;
 		const loan = this.state.loan;
 		customer.value = JSON.stringify(loan.value);
 		loan.value = JSON.stringify(loan.value);
+		processData.value = JSON.stringify(processData.value);
+
 		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/localVariables`, {
 			method: 'POST',
 			body: JSON.stringify({
 				"modifications": {
 					"proposalId": proposalId,
 					"proposalDateTime": proposalDateTime,
+					"processData": processData,
 					"customer": customer,
 					"loan": loan
 				}
 			}),
+			mode:'no-cors',
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
 			}
@@ -270,13 +321,22 @@ export default class ProposeDocument extends React.Component{
 					console.log("After parsing customer: ", customer);
 					const loan = result.loan ? result.loan : {value:{ id: "", amount: 0, term: 0, interestRate: 0.0, type: "0"}};
 					console.log("After parsing loan: ", loan);
-					const proposalId = result.proposalId ? result.proposalId : "";
-					const proposalDateTime = result.proposalDateTime ? result.proposalDateTime : "";
+					const _proposalId = result.proposalId ? result.proposalId : "";
+					const proposalId = {}
+					proposalId.value = _proposalId.value
+					const _proposalDateTime = result.proposalDateTime ? result.proposalDateTime : "";
+					const proposalDateTime = {}
+					proposalDateTime.value = _proposalDateTime.value
+					const _processData = result.processData ? result.processData : { value: { processId: "", rmCode: "", rmDecision: "", rmComment: "", rmManager1Code: "", rmManager1Decision: "", rmManager1Comment: "", rmManager2Code: "", rmManager2Decision: "", rmManager2Comment: "" } }
+					const processData = {}
+					processData.value = _processData.value
+					console.log("After parsing process data: ", processData);
 
 					this.setState({
 						isLoaded: true,
 						proposalId: proposalId,
 						proposalDateTime: proposalDateTime,
+						processData: processData,
 						customer: customer,
 						loan: loan
 					});
@@ -287,7 +347,6 @@ export default class ProposeDocument extends React.Component{
 						error
 					});
 					console.log("Error: ", error);
-
 				}
 			)
 	}
@@ -295,25 +354,31 @@ export default class ProposeDocument extends React.Component{
     render(){
         return(
 			(this.state.isLoaded)?
-					<ProposeDocumentHook  requisition				=	{this.state.requisition.value}
-											position				=	{this.state.position.value}
-											qualification			=	{this.state.qualification.value}
+					<ProposeDocumentHook  	customer				=	{this.state.customer.value}
+											loan					=	{this.state.loan.value}
+											processData				=   {this.state.processData.value}
 
-											handleEmpTypeChange		=	{this.handleEmpTypeChange}
-											handleDepartmentChange	=	{this.handleDepartmentChange}
-											handleLocationChange	=	{this.handleLocationChange}
-											handlePositionChange	=	{this.handlePositionChange}
-											handleEmpNumChange		=	{this.handleEmpNumChange}
-											handleJobTitleChange	=	{this.handleJobTitleChange}
-											handleStartDateChange	=	{this.handleStartDateChange}
-											handleRequesterChange	=	{this.handleRequesterChange}
-											handleCancelClick		=	{this.handleCancelClick}
-											handleSaveClick			=	{this.handleSaveClick}
-											handleSubmitClick		=	{this.handleSubmitClick}
-											handleEducationSelect	= 	{this.handleEducationSelect}
-											handleSkillSelect		= 	{this.handleSkillSelect}
-											handleExperienceSelect	= 	{this.handleExperienceSelect}
-											handleIsNewPositionClick=	{this.handleIsNewPositionClick}
+											proposalId				=   {this.state.proposalId.value}
+											proposalDateTime		=	{this.state.proposalDateTime.value}
+
+											handleCustomerCodeChange 			= {this.handleCustomerCodeChange}
+											handleCustomerNameChange 			= {this.handleCustomerNameChange}
+											handleCustomerPhoneNumberChange 	= {this.handleCustomerPhoneNumberChange}
+											handleCustomerAddressChange 		= {this.handleCustomerAddressChange}
+											handleCustomerTypeSelect 			= {this.handleCustomerTypeSelect}
+
+											handleLoanIdChange 					= {this.handleLoanIdChange}
+											handleLoanAmountChange 				= {this.handleLoanAmountChange}
+											handleLoanTermChange 				= {this.handleLoanTermChange}
+											handleLoanInterestRateChange 		= {this.handleLoanInterestRateChange}
+											handleLoanTypeSelect 				= {this.handleLoanTypeSelect}
+
+											handleApprovalSelect				= {this.handleApprovalSelect}
+											handleApprovalCommentChange			= {this.handleApprovalCommentChange}
+
+											handleSubmitClick 	= {this.handleSubmitClick}
+											handleCancelClick	= {this.handleCancelClick}
+											handleSaveClick		= {this.handleSaveClick}
 					/>
 			:<div>Loading....</div>
         );

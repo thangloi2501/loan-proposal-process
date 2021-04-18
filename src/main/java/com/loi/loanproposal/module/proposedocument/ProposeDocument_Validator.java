@@ -1,13 +1,13 @@
-package com.loi.loanproposal.module.validator;
+package com.loi.loanproposal.module.proposedocument;
 
 import org.camunda.bpm.engine.impl.form.validator.FormFieldValidator;
 import org.camunda.bpm.engine.impl.form.validator.FormFieldValidatorContext;
 
 import java.util.logging.Logger;
 
-public class SubmitApplicationValidator implements FormFieldValidator {
+public class ProposeDocument_Validator implements FormFieldValidator {
 
-    private final Logger LOGGER = Logger.getLogger(SubmitApplicationValidator.class.getName());
+    private final Logger LOGGER = Logger.getLogger(ProposeDocument_Validator.class.getName());
 
     @Override
     public boolean validate(Object submittedValue, FormFieldValidatorContext validatorContext) {

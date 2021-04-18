@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -16,7 +17,7 @@ import java.util.Objects;
  */
 @Getter @Setter
 @AllArgsConstructor @Builder
-public class ProposalDocument {
+public class ProposalDocument implements Serializable {
     private String proposalId;
     private LocalDateTime proposalDateTime;
     private Customer customer;

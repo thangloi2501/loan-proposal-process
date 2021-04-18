@@ -25,17 +25,17 @@ import one.util.streamex.StreamEx;
 @Getter
 @AllArgsConstructor
 public enum Decision {
-    DECLINED("DECLINED"), APPROVED("APPROVED");
+    NO("N"), YES("Y");
 
-    private final String databaseValue;
+    private final String value;
 
-    public static Decision fromDatabaseValue(String value) {
+    public static Decision fromValue(String value) {
         return StreamEx.of(Decision.values())
-                       .findFirst(enumValue -> enumValue.databaseValue.equals(value))
+                       .findFirst(enumValue -> enumValue.value.equals(value))
                        .orElse(null);
     }
 
-    public static String toDatabaseValue(Decision enumValue) {
-        return enumValue == null ? null : enumValue.databaseValue;
+    public static String toValue(Decision enumValue) {
+        return enumValue == null ? null : enumValue.value;
     }
 }

@@ -4,7 +4,7 @@ import { Card, CardHeader, CardContent, TextField, MenuItem } from '@material-ui
 import MasterDataService from '../../services/MasterDataService';
 
 const masterDataService = new MasterDataService();
-const loanTypes = masterDataService.fetchLoanType();
+// const loanType = masterDataService.fetchLoanType();
 let isLoaded = false;
 
 const useStyles = makeStyles(theme => ({
@@ -25,12 +25,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function LoanPanel(props) {
 
-    // const [departments, setDepartments] = React.useState([]);
-    // const classes = useStyles();
-    // if(!isLoaded){
-    //     masterDataService.fetchDepartment(setDepartments);
-    //     isLoaded = true;
-    // }
+    const [loanTypes, setLoanTypes] = React.useState([]);
+    const classes = useStyles();
+    if(!isLoaded){
+        masterDataService.fetchLoanType(setLoanTypes);
+        isLoaded = true;
+    }
 
     return (
         <Card className={classes.section}>
@@ -82,7 +82,7 @@ export default function LoanPanel(props) {
                     label="Type"
                     className={classes.textField}
                     value={props.loan.type}
-                    onChange={props.handleLoanTypeChange}
+                    onChange={props.handleLoanTypeSelect}
                     SelectProps={{
                         MenuProps: {
                             className: classes.menu,

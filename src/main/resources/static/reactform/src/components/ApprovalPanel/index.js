@@ -6,26 +6,33 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyle = makeStyles(theme => ({
     fullSizeTextField: {
         width: "100%"
-    }
+    },
+    section: {
+        marginRight: theme.spacing(1),
+        marginBottom: theme.spacing(1)
+    },
+    textField: {
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1),
+		width: 200,
+	}
 }))
 
 const APPROVAL_OPTIONS = [
     {
-        "value": "APPROVED",
-        "label": "Approved"
+        "value": "Y",
+        "label": "YES"
     },
     {
-        "value": "DECLINED",
-        "label": "Declined"
+        "value": "N",
+        "label": "NO"
     }
 ];
 
 export default function ApprovalPanel(props) {
 
     const classes = useStyle();
-    let [approvalOption, setApprovalOption] = React.useState(props.gmApproval);
-
-    console.log("ApprovalPanel props:", approvalOption)
+    let [approvalOption, setApprovalOption] = React.useState(props.approval);
 
     const handleToggle = value => () => {
         setApprovalOption(value);
@@ -36,10 +43,10 @@ export default function ApprovalPanel(props) {
 
     return (
         <Card className={classes.section}>
-            <CardHeader title='Controller Approval' />
+            <CardHeader title='Decision' />
             <CardContent>
                 <Grid container direction="column">
-                    <Grid item>
+                    <Grid item className={classes.textField}>
                         <List>
                             {APPROVAL_OPTIONS.map(item => {
                                 return (
@@ -59,16 +66,16 @@ export default function ApprovalPanel(props) {
                     </Grid>
                     <Grid item>
                         <TextField
-                            id="gmComment"
-                            label="Controller Comment"
+                            id="comment"
+                            label="Comment"
                             multiline
                             rows="5"
                             defaultValue=""
                             className={classes.fullSizeTextField}
                             margin="normal"
                             variant="outlined"
-                            value={props.gmComment}
-                            onChange={props.handlerGMCommentChange}
+                            value={props.comment}
+                            onChange={props.handleApprovalCommentChange}
                         />
                     </Grid>
                 </Grid>

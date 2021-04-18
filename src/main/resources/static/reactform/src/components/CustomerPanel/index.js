@@ -4,7 +4,7 @@ import { Card, CardHeader, CardContent, TextField, MenuItem } from '@material-ui
 import MasterDataService from '../../services/MasterDataService';
 
 const masterDataService = new MasterDataService();
-const customerTypes = masterDataService.fetchCustomerType();
+
 let isLoaded = false;
 
 const useStyles = makeStyles(theme => ({
@@ -22,15 +22,14 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-
 export default function CustomerPanel(props) {
 
-    // const [departments, setDepartments] = React.useState([]);
-    // const classes = useStyles();
-    // if(!isLoaded){
-    //     masterDataService.fetchDepartment(setDepartments);
-    //     isLoaded = true;
-    // }
+    const [customerTypes, setCustomerTypes] = React.useState([]);
+    const classes = useStyles();
+    if(!isLoaded){
+        masterDataService.fetchCustomerType(setCustomerTypes);
+        isLoaded = true;
+    }
 
     return (
         <Card className={classes.section}>
@@ -83,7 +82,7 @@ export default function CustomerPanel(props) {
                     label="Customer type"
                     className={classes.textField}
                     value={props.customer.type}
-                    onChange={props.handleCustomerTypeChange}
+                    onChange={props.handleCustomerTypeSelect}
                     SelectProps={{
                         MenuProps: {
                             className: classes.menu,
