@@ -229,12 +229,12 @@ export default class ProposeDocument extends React.Component{
 		console.log("loan: ", this.state.loan);
 		const proposalId = this.state.proposalId;
 		const proposalDateTime = this.state.proposalDateTime;
-		const processData = this.state.processData;
+		const processData = {};
 		const customer = this.state.customer;
 		const loan = this.state.loan;
 		customer.value = JSON.stringify(customer.value);
 		loan.value = JSON.stringify(loan.value);
-		processData.value = JSON.stringify(processData.value);
+		processData.value = JSON.stringify(this.state.processData.value);
 
 		console.log("request body:", JSON.stringify({
 			"variables": {

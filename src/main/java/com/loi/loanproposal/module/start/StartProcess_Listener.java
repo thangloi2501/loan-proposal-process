@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
 import org.camunda.bpm.engine.variable.Variables;
-import org.camunda.bpm.engine.variable.value.ObjectValue;
+import org.camunda.bpm.engine.variable.value.TypedValue;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,7 +16,6 @@ import java.util.UUID;
 
 /**
  * @author Loi Nguyen
- *
  */
 @Slf4j
 public class StartProcess_Listener implements ExecutionListener {
@@ -28,21 +27,18 @@ public class StartProcess_Listener implements ExecutionListener {
 
         // Proposal ID format: P.YYYYMMDD.UUID
         String proposalId = String.format("P.%s.%s",
-                                          LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE).replace("-",""),
+                                          LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE).replace("-", ""),
                                           UUID.randomUUID().toString());
         execution.setVariable("proposalId", proposalId);
 
         // Proposal Date Time
         execution.setVariable("proposalDateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-        ObjectValue processData = Variables.objectValue(ProcessData.builder()
-                                                                   .processId(execution.getProcessInstanceId())
-                                                                   .rmDecision(Decision.NO.getValue())
-                                                                   .build())
-                                           .serializationDataFormat(Variables.SerializationDataFormats.JAVA)
-                                           .create();
+        TypedValue processData = Variables.objectValue(ProcessData.builder()
+                                                                  .processId(execution.getProcessInstanceId())
+                                                                  .rmDecision(Decision.NO.getValue())
+                                                                  .build(), false).create();
 
         execution.setVariable("processData", processData);
-
     }
 }

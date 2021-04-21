@@ -38,17 +38,10 @@
     </bpmn:startEvent>
     <bpmn:userTask id="compose-document" name="Compose Proposal Document" camunda:formKey="/forms/propose-document.html" camunda:candidateGroups="RM">
       <bpmn:extensionElements>
-        <camunda:taskListener class="com.loi.loanproposal.module.proposedocument.ProposeDocument_CreateListener" event="create" />
-        <camunda:inputOutput>
-          <camunda:inputParameter name="proposalDateTime">${proposalDateTime}</camunda:inputParameter>
-          <camunda:inputParameter name="processData">${processData}</camunda:inputParameter>
-          <camunda:inputParameter name="proposalId">${proposalId}</camunda:inputParameter>
-          <camunda:outputParameter name="processData">${processData}</camunda:outputParameter>
-        </camunda:inputOutput>
         <camunda:properties>
           <camunda:property />
         </camunda:properties>
-        <camunda:taskListener class="com.loi.loanproposal.module.proposedocument.ProposeDocument_CompleteListener" event="complete" />
+        <camunda:executionListener class="com.loi.loanproposal.module.proposedocument.ProposeDocument_EndListener" event="end" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_13r91mo</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_12i5wqn</bpmn:outgoing>

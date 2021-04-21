@@ -1,9 +1,7 @@
 package com.loi.loanproposal.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,9 +9,11 @@ import java.util.Objects;
 /**
  * @author Loi Nguyen
  */
-@Getter @Setter
-@AllArgsConstructor @Builder
+@Getter @Builder
+@ToString @AllArgsConstructor @NoArgsConstructor
 public class ProcessData implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String processId;
 
     private String rmCode;
