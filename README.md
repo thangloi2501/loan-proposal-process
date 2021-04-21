@@ -3,7 +3,7 @@
 ![alt text](https://github.com/thangloi2501/loan-proposal-process/blob/master/loan-process.png?raw=true)
 
 ## Configure application DB
-Edit the below configuration in resources/application.properties file
+Edit the below configuration in resources/application.yaml file
 ```bash
 spring.datasource.url= jdbc:h2:file:./camunda-demo
 ```
