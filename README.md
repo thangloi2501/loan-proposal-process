@@ -1,8 +1,8 @@
-# Loan proposal process (banking)
+# Loan Credit Proposal Process (Banking)
 ## Configure application DB
 Edit the below configuration in resources/application.properties file
 ```bash
-spring.datasource.url= jdbc:h2:file:loan-proposal-process-db
+spring.datasource.url= jdbc:h2:file:./camunda-demo
 ```
 
 ## Build
@@ -15,10 +15,8 @@ mvn package
 mvn spring-boot:run
 ```
 
-## web app accessing
+## Camunda Web Management
 
 #### http://localhost:8080/
 #### username: demo
 #### password: demo
-
-## loan proposal process
