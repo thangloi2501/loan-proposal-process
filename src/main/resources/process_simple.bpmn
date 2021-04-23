@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:collaboration id="loan_proposal">
+    <bpmn:extensionElements>
+      <camunda:properties>
+        <camunda:property name="proposalId" />
+        <camunda:property name="proposalDateTime" />
+        <camunda:property name="processData" />
+        <camunda:property name="isDocumentSufficient" />
+      </camunda:properties>
+    </bpmn:extensionElements>
+    <bpmn:participant id="loan_proposal_process" name="Loan Proposal Process" processRef="loan-proposal-process" />
+  </bpmn:collaboration>
+  <bpmn:process id="loan-proposal-process" name="Loan Proposal Process" isExecutable="true" camunda:versionTag="1.0">
+    <bpmn:laneSet id="LaneSet_16juzv5">
+      <bpmn:lane id="rm" name="RM">
+        <bpmn:flowNodeRef>StartEvent_19ovyws</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>compose-document</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>is-enough-document</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="rm_manager_1" name="RM Manager 1" />
+      <bpmn:lane id="rm_manager_2" name="RM Manager 2" />
+      <bpmn:lane id="system" name="System">
+        <bpmn:flowNodeRef>inform-customer</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0au9kto</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:serviceTask id="inform-customer" name="Inform Customer" camunda:class="com.loi.loanproposal.module.informcustomer.InformCustomer_Service">
+      <bpmn:incoming>Flow_00a2qyh</bpmn:incoming>
+      <bpmn:incoming>Flow_0ds2y4u</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uw15g9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_19ovyws" name="Start">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="com.loi.loanproposal.module.start.StartProcess_Listener" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_13r91mo</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="compose-document" name="Compose Proposal Document" camunda:formKey="/forms/propose-document.html" camunda:candidateGroups="RM">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property />
+        </camunda:properties>
+        <camunda:executionListener class="com.loi.loanproposal.module.proposedocument.ProposeDocument_EndListener" event="end" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_13r91mo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_12i5wqn</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="is-enough-document" name="Is Document Sufficient?">
+      <bpmn:incoming>SequenceFlow_12i5wqn</bpmn:incoming>
+      <bpmn:outgoing>Flow_00a2qyh</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ds2y4u</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_0au9kto" name="End&#10;&#10;">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="com.loi.loanproposal.module.end.EndProcess_Listener" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1uw15g9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1uw15g9" sourceRef="inform-customer" targetRef="EndEvent_0au9kto" />
+    <bpmn:sequenceFlow id="SequenceFlow_13r91mo" sourceRef="StartEvent_19ovyws" targetRef="compose-document" />
+    <bpmn:sequenceFlow id="SequenceFlow_12i5wqn" sourceRef="compose-document" targetRef="is-enough-document" />
+    <bpmn:sequenceFlow id="Flow_00a2qyh" name="No" sourceRef="is-enough-document" targetRef="inform-customer">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${processData.rmDecision == "N"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0ds2y4u" name="Yes" sourceRef="is-enough-document" targetRef="inform-customer">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${processData.rmDecision == "Y"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="loan_proposal">
+      <bpmndi:BPMNShape id="Participant_1vvpglg_di" bpmnElement="loan_proposal_process" isHorizontal="true">
+        <dc:Bounds x="153" y="80" width="1097" height="830" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_05ja0u6_di" bpmnElement="system" isHorizontal="true">
+        <dc:Bounds x="183" y="685" width="1097" height="225" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0k0lctr_di" bpmnElement="rm_manager_2" isHorizontal="true">
+        <dc:Bounds x="183" y="511" width="1097" height="174" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0ibugg9_di" bpmnElement="rm_manager_1" isHorizontal="true">
+        <dc:Bounds x="183" y="314" width="1097" height="197" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1ijky4o_di" bpmnElement="rm" isHorizontal="true">
+        <dc:Bounds x="183" y="80" width="1097" height="234" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_00a2qyh_di" bpmnElement="Flow_00a2qyh">
+        <di:waypoint x="498" y="275" />
+        <di:waypoint x="498" y="763" />
+        <di:waypoint x="808" y="763" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="506" y="516" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ds2y4u_di" bpmnElement="Flow_0ds2y4u">
+        <di:waypoint x="523" y="250" />
+        <di:waypoint x="858" y="250" />
+        <di:waypoint x="858" y="723" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="683" y="232" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_12i5wqn_di" bpmnElement="SequenceFlow_12i5wqn">
+        <di:waypoint x="498" y="180" />
+        <di:waypoint x="498" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_13r91mo_di" bpmnElement="SequenceFlow_13r91mo">
+        <di:waypoint x="308" y="140" />
+        <di:waypoint x="448" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uw15g9_di" bpmnElement="Flow_1uw15g9">
+        <di:waypoint x="858" y="803" />
+        <di:waypoint x="858" y="830" />
+        <di:waypoint x="678" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1v76pd1_di" bpmnElement="inform-customer">
+        <dc:Bounds x="808" y="723" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_19ovyws_di" bpmnElement="StartEvent_19ovyws">
+        <dc:Bounds x="272" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="279" y="165" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1836jh7_di" bpmnElement="compose-document" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
+        <dc:Bounds x="448" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_11iuzgl_di" bpmnElement="is-enough-document" isMarkerVisible="true">
+        <dc:Bounds x="473" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="401" y="236" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0au9kto_di" bpmnElement="EndEvent_0au9kto">
+        <dc:Bounds x="642" y="812" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="650" y="860" width="20" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
