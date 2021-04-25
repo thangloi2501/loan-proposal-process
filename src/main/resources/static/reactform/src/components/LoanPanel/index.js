@@ -82,7 +82,7 @@ export default function LoanPanel(props) {
                     label="Type"
                     className={classes.textField}
                     value={props.loan.type}
-                    onChange={props.handleLoanTypeSelect}
+                    onChange={props.handleLoanTypeChange}
                     SelectProps={{
                         MenuProps: {
                             className: classes.menu,

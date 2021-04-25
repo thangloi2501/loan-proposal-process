@@ -53,7 +53,7 @@ function ProposeDocumentHook(props) {
                                             handleCustomerPhoneNumberChange =   {props.handleCustomerPhoneNumberChange}
                                             handleCustomerAddressChange		=   {props.handleCustomerAddressChange} 
 											handleCustomerTypeChange		=	{props.handleCustomerTypeChange}
-											disabled={false}
+											disabled={true}
 											/>
                         </Grid>
                         <Grid item xs={12} lg={6}>
@@ -63,13 +63,27 @@ function ProposeDocumentHook(props) {
                                             handleLoanTermChange    		=   {props.handleLoanTermChange}
                                             handleLoanInterestRateChange    =   {props.handleLoanInterestRateChange} 
 											handleLoanTypeChange	   		=   {props.handleLoanTypeChange} 											
-											disabled={false}
+											disabled={true}
 											/>
                         </Grid>
 						<Grid item xs={12}>
 							<ApprovalPanel  title							= 	'RM Decision'
 											approval				        =	{props.processData.rmDecision}
 											comment				            =	{props.processData.rmComment}
+											disabled={true}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<ApprovalPanel  title							= 	'RM Manager 1 Decision'
+											approval				        =	{props.processData.rmManager1Decision}
+											comment				            =	{props.processData.rmManager1Comment}
+											disabled={true}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<ApprovalPanel  title							= 	'RM Manager 2 Decision'
+											approval				        =	{props.processData.rmManager2Decision}
+											comment				            =	{props.processData.rmManager2Comment}
 											handleApprovalCommentChange	    =	{props.handleApprovalCommentChange}
 											handleApprovalSelect	        =	{props.handleApprovalSelect}
 											disabled={false}
@@ -166,7 +180,7 @@ export default class ProposeDocument extends React.Component{
 	// ----------------------------	
 	handleApprovalCommentChange(event) {
 		const processData = this.state.processData;
-		processData.value.rmComment = event.target.value;
+		processData.value.rmManager2Comment = event.target.value;
 		this.setState(
 			{ processData: processData }
 		)
@@ -174,7 +188,7 @@ export default class ProposeDocument extends React.Component{
 
 	handleApprovalSelect(checked){
 		const processData = this.state.processData;
-		processData.value.rmDecision = checked;
+		processData.value.rmManager2Decision = checked;
 		this.setState({
 			processData: processData
 		})
@@ -279,12 +293,12 @@ export default class ProposeDocument extends React.Component{
 	handleSaveClick() {
 		const proposalId = this.state.proposalId;
 		const proposalDateTime = this.state.proposalDateTime;
-		const processData = {};
+		const processData = this.state.processData;
 		const customer = this.state.customer;
 		const loan = this.state.loan;
 		customer.value = JSON.stringify(loan.value);
 		loan.value = JSON.stringify(loan.value);
-		processData.value = JSON.stringify(this.state.processData.value);
+		processData.value = JSON.stringify(processData.value);
 
 		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/localVariables`, {
 			method: 'POST',

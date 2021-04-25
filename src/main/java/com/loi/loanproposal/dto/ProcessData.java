@@ -1,7 +1,6 @@
 package com.loi.loanproposal.dto;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,7 +8,7 @@ import java.util.Objects;
 /**
  * @author Loi Nguyen
  */
-@Getter @Builder
+@Data @Builder
 @ToString @AllArgsConstructor @NoArgsConstructor
 public class ProcessData implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -28,20 +27,22 @@ public class ProcessData implements Serializable {
     private String rmManager2Decision;
     private String rmManager2Comment;
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(this.processId);
-//    }
-//
-//    @Override
-//    public boolean equals(Object other) {
-//        if (this == other)
-//            return true;
-//
-//        if (!(other instanceof ProcessData))
-//            return false;
-//
-//        ProcessData that = (ProcessData) other;
-//        return Objects.equals(that.processId, this.processId);
-//    }
+    private boolean isNeedControl2;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.processId);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+
+        if (!(other instanceof ProcessData))
+            return false;
+
+        ProcessData that = (ProcessData) other;
+        return Objects.equals(that.processId, this.processId);
+    }
 }

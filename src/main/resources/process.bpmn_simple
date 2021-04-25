@@ -41,7 +41,7 @@
         <camunda:properties>
           <camunda:property />
         </camunda:properties>
-        <camunda:executionListener class="com.loi.loanproposal.module.proposedocument.ProposeDocument_EndListener" event="end" />
+        <camunda:taskListener class="com.loi.loanproposal.module.proposedocument.ProposeDocument_CompleteListener" event="complete" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_13r91mo</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_12i5wqn</bpmn:outgoing>
@@ -84,20 +84,20 @@
       <bpmndi:BPMNShape id="Lane_1ijky4o_di" bpmnElement="rm" isHorizontal="true">
         <dc:Bounds x="183" y="80" width="1097" height="234" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_00a2qyh_di" bpmnElement="Flow_00a2qyh">
-        <di:waypoint x="498" y="275" />
-        <di:waypoint x="498" y="763" />
-        <di:waypoint x="808" y="763" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="506" y="516" width="15" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ds2y4u_di" bpmnElement="Flow_0ds2y4u">
         <di:waypoint x="523" y="250" />
         <di:waypoint x="858" y="250" />
         <di:waypoint x="858" y="723" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="683" y="232" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00a2qyh_di" bpmnElement="Flow_00a2qyh">
+        <di:waypoint x="498" y="275" />
+        <di:waypoint x="498" y="763" />
+        <di:waypoint x="808" y="763" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="506" y="516" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_12i5wqn_di" bpmnElement="SequenceFlow_12i5wqn">

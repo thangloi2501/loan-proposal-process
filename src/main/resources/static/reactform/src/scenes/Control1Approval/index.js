@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function ProposeDocumentHook(props) {
+function Control1ApprovalHook(props) {
 
 	const classes = useStyles();
 	return (
@@ -36,7 +36,7 @@ function ProposeDocumentHook(props) {
 				<ExpansionPanelSummary
 					aria-controls="panel1a-content"
 					id="panel1a-header">
-					<Typography className={classes.heading}>Loan Credit Proposal</Typography>
+					<Typography className={classes.heading}>Loan Credit Control 1 (RM Manager 1)</Typography>
                 </ExpansionPanelSummary>
 
 				<ExpansionPanelDetails>
@@ -53,7 +53,7 @@ function ProposeDocumentHook(props) {
                                             handleCustomerPhoneNumberChange =   {props.handleCustomerPhoneNumberChange}
                                             handleCustomerAddressChange		=   {props.handleCustomerAddressChange} 
 											handleCustomerTypeChange		=	{props.handleCustomerTypeChange}
-											disabled={false}
+											disabled={true}
 											/>
                         </Grid>
                         <Grid item xs={12} lg={6}>
@@ -63,13 +63,20 @@ function ProposeDocumentHook(props) {
                                             handleLoanTermChange    		=   {props.handleLoanTermChange}
                                             handleLoanInterestRateChange    =   {props.handleLoanInterestRateChange} 
 											handleLoanTypeChange	   		=   {props.handleLoanTypeChange} 											
-											disabled={false}
+											disabled={true}
 											/>
                         </Grid>
 						<Grid item xs={12}>
 							<ApprovalPanel  title							= 	'RM Decision'
 											approval				        =	{props.processData.rmDecision}
 											comment				            =	{props.processData.rmComment}
+											disabled={true}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<ApprovalPanel  title							= 	'RM Manager 1 Decision'
+											approval				        =	{props.processData.rmManager1Decision}
+											comment				            =	{props.processData.rmManager1Comment}
 											handleApprovalCommentChange	    =	{props.handleApprovalCommentChange}
 											handleApprovalSelect	        =	{props.handleApprovalSelect}
 											disabled={false}
@@ -87,7 +94,7 @@ function ProposeDocumentHook(props) {
 	);
 }
 
-export default class ProposeDocument extends React.Component{
+export default class Control1Approval extends React.Component{
     
     constructor(props){
         super(props)
@@ -97,10 +104,10 @@ export default class ProposeDocument extends React.Component{
             taskId: props.taskId,
 			proposalId: "",
 			proposalDateTime: "",
-			processData: { value: { processId: "", rmCode: "", rmDecision: "", rmComment: "", rmManager1Code: "", rmManager1Decision: "", rmManager1Comment: "", rmManager2Code: "", rmManager2Decision: "", rmManager2Comment: "" } },
+			processData: {},
 			isLoaded: false,
-			customer: {value: { code: "", name: "", phoneNumber: "", address: "", type: "0"}},
-			loan: {value: { id: "", amount: 0, term: 0, interestRate: 0.0, type: "0"}}
+			customer: {},
+			loan: {}
         };
 
 		this.handleCustomerCodeChange 			= this.handleCustomerCodeChange.bind(this);
@@ -166,7 +173,7 @@ export default class ProposeDocument extends React.Component{
 	// ----------------------------	
 	handleApprovalCommentChange(event) {
 		const processData = this.state.processData;
-		processData.value.rmComment = event.target.value;
+		processData.value.rmManager1Comment = event.target.value;
 		this.setState(
 			{ processData: processData }
 		)
@@ -174,7 +181,7 @@ export default class ProposeDocument extends React.Component{
 
 	handleApprovalSelect(checked){
 		const processData = this.state.processData;
-		processData.value.rmDecision = checked;
+		processData.value.rmManager1Decision = checked;
 		this.setState({
 			processData: processData
 		})
@@ -350,7 +357,7 @@ export default class ProposeDocument extends React.Component{
     render(){
         return(
 			(this.state.isLoaded)?
-					<ProposeDocumentHook  	customer				=	{this.state.customer.value}
+					<Control1ApprovalHook  	customer				=	{this.state.customer.value}
 											loan					=	{this.state.loan.value}
 											processData				=   {this.state.processData.value}
 

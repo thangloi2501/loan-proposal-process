@@ -25,6 +25,13 @@ public class StartProcess_Listener implements ExecutionListener {
 
         log.info("Loan Proposal Process - Start");
 
+        log.info("TODO: >>>>>>>>>>>>>>>");
+        log.info("1. Add business rule for approval level evaluation                        (IN-PROGRESS)");
+        log.info("2. Get customer info by customer code from db                             (TODO)");
+        log.info("3. User task assignment: to user (back and forth), to group (round-robin) (TODO)");
+        log.info("4. Unit tests                                                             (TODO)");
+        log.info(">>>>>>>>>>>>>>>>>>>>>");
+
         // Proposal ID format: P.YYYYMMDD.UUID
         String proposalId = String.format("P.%s.%s",
                                           LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE).replace("-", ""),

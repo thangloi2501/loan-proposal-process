@@ -13,10 +13,7 @@ import org.springframework.stereotype.Component;
 public class InformCustomer_Service implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        log.info(String.format("Inform Customer Result: %s %s %s",
-                               execution.getVariable("proposalId"),
-                               execution.getVariable("proposalDateTime"),
-                               execution.getVariable("rmDecision")));
+        log.info(String.format("Inform Customer Result: %s", execution.getVariable("processData")));
     }
 
 }

@@ -10,6 +10,8 @@
 	<name>Loan Proposal Process</name>
 	<description>Camunda demo for Loan Proposal Process</description>
 
+
+
 	<properties>
 		<camunda.version>7.11.0</camunda.version>
 		<!-- Adjust if you want to use Camunda Enterprise Edition (EE): <camunda.version>7.11.0-ee</camunda.version> 
@@ -31,6 +33,13 @@
 		<streamex.version>0.7.3</streamex.version>
 	</properties>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.7.RELEASE</version>
+		<relativePath/>
+	</parent>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -39,6 +48,13 @@
 				<version>${camunda.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.camunda.bpm.dmn</groupId>
+				<artifactId>camunda-engine-dmn-bom</artifactId>
+				<version>${camunda.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>

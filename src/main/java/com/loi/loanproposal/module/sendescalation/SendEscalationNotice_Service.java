@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
  */
 @Component("sendEscalationNotice")
 @Slf4j
-public class SendEscalationNoticeService implements JavaDelegate {
+public class SendEscalationNotice_Service implements JavaDelegate {
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		log.info("Sent escalation notice");
+		log.info(String.format("Send Escalation Notice: %s", execution.getVariable("processData")));
 	}
 
 }

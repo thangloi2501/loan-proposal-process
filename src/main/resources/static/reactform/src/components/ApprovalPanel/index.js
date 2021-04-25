@@ -43,7 +43,7 @@ export default function ApprovalPanel(props) {
 
     return (
         <Card className={classes.section}>
-            <CardHeader title='Decision' />
+            <CardHeader title={props.title} />
             <CardContent>
                 <Grid container direction="column">
                     <Grid item className={classes.textField}>
@@ -56,6 +56,7 @@ export default function ApprovalPanel(props) {
                                                 edge="start"
                                                 checked={approvalOption === item.value}
                                                 value={item.value}
+                                                disabled={props.disabled}
                                             />
                                         </ListItemIcon>
                                         <ListItemText primary={item.label} />
@@ -76,6 +77,7 @@ export default function ApprovalPanel(props) {
                             variant="outlined"
                             value={props.comment}
                             onChange={props.handleApprovalCommentChange}
+                            disabled={props.disabled}
                         />
                     </Grid>
                 </Grid>

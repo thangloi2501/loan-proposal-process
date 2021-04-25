@@ -82,7 +82,7 @@ export default function CustomerPanel(props) {
                     label="Customer type"
                     className={classes.textField}
                     value={props.customer.type}
-                    onChange={props.handleCustomerTypeSelect}
+                    onChange={props.handleCustomerTypeChange}
                     SelectProps={{
                         MenuProps: {
                             className: classes.menu,

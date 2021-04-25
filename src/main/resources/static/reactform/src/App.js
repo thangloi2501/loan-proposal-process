@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import ProposeDocument from './scenes/ProposeDocument';
 import URLUtil from './services/URLUtil';
-// import Control1Approval from './scenes/Control1Approval';
-// import Control2Approval from './scenes/Control2Approval';
+import Control1Approval from './scenes/Control1Approval';
+import Control2Approval from './scenes/Control2Approval';
 
 function App() {
   const utils = new URLUtil();
@@ -16,14 +16,14 @@ function App() {
         return (
           <ProposeDocument taskId={params.taskId} backUrl={params.callbackUrl}/>
         );
-    // case 'Control1Approval':
-    //     return (
-    //       <Control1Approval taskId={params.taskId} backUrl={params.callbackUrl}/>
-    //     );
-    // case 'Control2Approval':
-    //     return (
-    //       <Control2Approval taskId={params.taskId} backUrl={params.callbackUrl}/>
-    //     )
+    case 'Control1Approval':
+        return (
+          <Control1Approval taskId={params.taskId} backUrl={params.callbackUrl}/>
+        );
+    case 'Control2Approval':
+        return (
+          <Control2Approval taskId={params.taskId} backUrl={params.callbackUrl}/>
+        )
     default:
       return(
         <div></div>
