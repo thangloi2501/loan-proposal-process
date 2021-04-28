@@ -18,7 +18,7 @@ public class Loan {
     private Long amount; //VND
     private Long term; //in months
     private Double interestRate;
-    private LoanType type;
+    private String type;
 
     @Override
     public int hashCode() {

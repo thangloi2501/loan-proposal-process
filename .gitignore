@@ -1,2 +1,5 @@
 .idea/
 target/
+src/main/resources/static/reactform/node_modules/
+src/main/resources/static/reactform/build/
+src/main/resources/static/reactform/node/

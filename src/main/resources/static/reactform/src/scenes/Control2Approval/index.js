@@ -262,7 +262,7 @@ export default class ProposeDocument extends React.Component{
 			}
 		}))
 
-		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/complete`, {
+		fetch(`${window.location.protocol + '//' + window.location.host}/engine-rest/task/${this.state.taskId}/complete`, {
 			method: 'POST',
 			body: JSON.stringify({
 				"variables": {
@@ -300,7 +300,7 @@ export default class ProposeDocument extends React.Component{
 		loan.value = JSON.stringify(loan.value);
 		processData.value = JSON.stringify(processData.value);
 
-		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/localVariables`, {
+		fetch(`${window.location.protocol + '//' + window.location.host}/engine-rest/task/${this.state.taskId}/localVariables`, {
 			method: 'POST',
 			body: JSON.stringify({
 				"modifications": {
@@ -328,7 +328,7 @@ export default class ProposeDocument extends React.Component{
 	}
 
 	componentDidMount() {
-		fetch(`${window.location.protocol + '//' + window.location.host}/rest/task/${this.state.taskId}/variables`)
+		fetch(`${window.location.protocol + '//' + window.location.host}/engine-rest/task/${this.state.taskId}/variables`)
 			.then(res => res.json())
 			.then(
 				(result) => {

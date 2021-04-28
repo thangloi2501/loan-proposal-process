@@ -17,7 +17,7 @@ public class Customer {
     private String name;
     private String phoneNumber;
     private String address;
-    private CustomerType type;
+    private String type;
 
     @Override
     public int hashCode() {
