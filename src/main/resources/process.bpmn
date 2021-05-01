@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.7.0">
   <bpmn:collaboration id="loan_proposal">
     <bpmn:extensionElements>
       <camunda:properties>
@@ -21,9 +21,9 @@
       <bpmn:lane id="rm_manager_1" name="RM Manager 1">
         <bpmn:flowNodeRef>is-control-1-approved</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>control-1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>BoundaryEvent_1mnjux0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>is-need-control-2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>evaluate-approval-level</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BoundaryEvent_1mnjux0</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="rm_manager_2" name="RM Manager 2">
         <bpmn:flowNodeRef>is-control-2-approved</bpmn:flowNodeRef>
@@ -96,13 +96,13 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0ngdzhb" sourceRef="control-2" targetRef="is-control-2-approved" />
     <bpmn:sequenceFlow id="Flow_0ap0di3" name="No" sourceRef="is-need-control-2" targetRef="inform-customer">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${processData.isNeedControl2 == false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isNeedControl2 == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0pdn79d" name="No" sourceRef="is-control-1-approved" targetRef="compose-document">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${processData.rmManager1Decision == "N"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_04nd3vr" name="Yes" sourceRef="is-need-control-2" targetRef="control-2">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${processData.isNeedControl2 == true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isNeedControl2 == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_13r91mo" sourceRef="StartEvent_19ovyws" targetRef="compose-document" />
     <bpmn:sequenceFlow id="SequenceFlow_12i5wqn" sourceRef="compose-document" targetRef="is-enough-document" />
@@ -145,7 +145,7 @@
     <bpmn:businessRuleTask id="evaluate-approval-level" name="Evaluate Approval Level" camunda:asyncBefore="true" camunda:resultVariable="isNeedControl2" camunda:decisionRef="aprovalLevelEvaluationDRD" camunda:mapDecisionResult="singleEntry">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:outputParameter name="processData.isNeedControl2">${isNeedControl2}</camunda:outputParameter>
+          <camunda:outputParameter name="isNeedControl2">${isNeedControl2}</camunda:outputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0z338qk</bpmn:incoming>
@@ -169,6 +169,10 @@
       <bpmndi:BPMNShape id="Lane_1ijky4o_di" bpmnElement="rm" isHorizontal="true">
         <dc:Bounds x="183" y="80" width="1147" height="234" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0knkvku_di" bpmnElement="Flow_0knkvku">
+        <di:waypoint x="910" y="400" />
+        <di:waypoint x="955" y="400" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_00a2qyh_di" bpmnElement="Flow_00a2qyh">
         <di:waypoint x="498" y="275" />
         <di:waypoint x="498" y="763" />
@@ -260,10 +264,6 @@
         <di:waypoint x="980" y="803" />
         <di:waypoint x="980" y="830" />
         <di:waypoint x="678" y="830" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0knkvku_di" bpmnElement="Flow_0knkvku">
-        <di:waypoint x="910" y="400" />
-        <di:waypoint x="955" y="400" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_1r4mp99_di" bpmnElement="is-control-1-approved" isMarkerVisible="true">
         <dc:Bounds x="703" y="375" width="50" height="50" />

@@ -12,7 +12,7 @@ public class Temp_Service implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         log.info("Evaluating approval level...");
-        execution.setVariable("isNeedApproval2", true);
+        log.info(execution.getVariable("dmn").toString());
     }
 
 }
