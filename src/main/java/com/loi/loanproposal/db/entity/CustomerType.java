@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "CUSTOMER_TYPE", uniqueConstraints = {
@@ -16,7 +17,7 @@ import javax.persistence.*;
 @Data
 @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class CustomerType {
+public class CustomerType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_type_seq_gen")
     @SequenceGenerator(name = "customer_type_seq_gen", sequenceName = "CUSTOMER_TYPE_SEQ")

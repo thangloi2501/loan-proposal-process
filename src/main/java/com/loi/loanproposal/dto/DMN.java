@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author Loi Nguyen
+ *
  */
 @Data @Builder
 @ToString @AllArgsConstructor @NoArgsConstructor

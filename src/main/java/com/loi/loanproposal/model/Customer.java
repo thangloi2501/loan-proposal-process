@@ -9,8 +9,7 @@ import java.util.Objects;
  * @author Loi Nguyen
  *
  */
-@Component("customer")
-@Getter @Setter
+@Data
 @NoArgsConstructor @AllArgsConstructor @Builder
 public class Customer {
     private String code;
