@@ -27,8 +27,6 @@ public class ProcessData implements Serializable {
     private String rmManager2Decision;
     private String rmManager2Comment;
 
-    private boolean isNeedControl2;
-
     @Override
     public int hashCode() {
         return Objects.hash(this.processId);

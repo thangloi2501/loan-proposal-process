@@ -5,7 +5,9 @@ import ApprovalPanel from '../../components/ApprovalPanel';
 import { ExpansionPanel, Typography, Grid, Button, ExpansionPanelSummary, ExpansionPanelDetails, TextField, Menu, MenuItem} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ActionButtonSection from '../../components/ActionButtonSection';
+import CustomerService from '../../services/CustomerService';
 
+const customerService = new CustomerService();
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -88,7 +90,7 @@ function ProposeDocumentHook(props) {
 }
 
 export default class ProposeDocument extends React.Component{
-    
+
     constructor(props){
         super(props)
         console.log("props: ", props);
@@ -125,10 +127,21 @@ export default class ProposeDocument extends React.Component{
 
 	handleCustomerCodeChange(event) {
 		const customer = this.state.customer;
-		customer.value.code = event.target.value;
-		this.setState(
-			{ customer: customer }
-		)
+		const customerCode = event.target.value;
+
+		if (customerCode.length < 3) // customer code must be greater than or equals 3 characters
+			this.setState({ customer: { value: { code: customerCode, name: "", phoneNumber: "", address: "", type: "0" } } })
+		else
+			customerService.getCustomerByCode(customerCode,
+				(customerDetails) => {
+					customer.value.code = customerCode;
+					customer.value.name = customerDetails.name;
+					customer.value.phoneNumber = customerDetails.phoneNumber;
+					customer.value.address = customerDetails.address;
+					customer.value.type = customerDetails.type;
+
+					this.setState({ customer: customer })
+				});
 	}
 	
 	handleCustomerNameChange(event) {
