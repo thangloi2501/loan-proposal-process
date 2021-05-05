@@ -1,5 +1,6 @@
 package com.loi.loanproposal;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -26,23 +27,29 @@ import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
-public class ProcessUnitTest {
+@Slf4j
+public class ProcessTest {
 
   private static final String PROCESS_DEFINITION_KEY = "loan-proposal-process";
-
-  static {
-    LogFactory.useSlf4jLogging(); // MyBatis
-  }
 
   @Rule
   public final ProcessEngineRule processEngine = new StandaloneInMemoryTestConfiguration().rule();
 
   @Test
+  @Deployment(resources = "test_process.bpmn")
   public void testHappyPath() {
-    // Either: Drive the process by API and assert correct behavior by camunda-bpm-assert, e.g.:
-    //ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
-    
-    // Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
+    // given
+    ProcessInstance processInstance = runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
+    assertThat(processInstance).isStarted();
+
+    // when
+    complete(task(), withVariables("processData.rmDecision", "N"));
+
+    // then
+    assertThat(processInstance)
+//            .hasPassed("end_event_tweet_published")
+//            .hasNotPassed("end_event_tweet_rejected")
+            .isEnded();
   }
 
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="aprovalLevelEvaluation" name="Aproval Level Evaluation" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.7.0">
+  <decision id="aprovalLevelEvaluationDRD" name="Approval Level Evaluation">
+    <informationRequirement id="InformationRequirement_17vgiye">
+      <requiredInput href="#InputData_1wh6m47" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0y0egpz">
+      <requiredInput href="#InputData_16xrstb" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0o3f8u5" hitPolicy="FIRST">
+      <input id="Input_1" label="dmn.loanAmount" biodi:width="192">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>dmn.loanAmount</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0h9gb5s" label="dmn.loanTerm" biodi:width="192">
+        <inputExpression id="LiteralExpression_15ccnbv" typeRef="integer">
+          <text>dmn.loanAmount</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="isNeedControl2" typeRef="boolean" />
+      <rule id="DecisionRule_0san8y4">
+        <description>Less than 1K, no need controller 2</description>
+        <inputEntry id="UnaryTests_0ftfzfb">
+          <text>&lt;1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jh4v3e">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qi3uhv">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0g5zpl5">
+        <description>More than or equal 1K but loan term &lt;= 6 months, no need controller 2</description>
+        <inputEntry id="UnaryTests_07y1on0">
+          <text>&gt;=1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a0b4jj">
+          <text>&lt;=6</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vnkjy9">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w7g3tm">
+        <description>More than or equal 1K and loan term &gt; 6 months, need controller 2</description>
+        <inputEntry id="UnaryTests_1vhax5x">
+          <text>&gt;=1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01onbc5">
+          <text>&gt;6</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c7m031">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mtgdwi">
+        <inputEntry id="UnaryTests_1pw12uv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04qkhw9">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_194ktcp">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1wh6m47" name="Loan Amount" />
+  <inputData id="InputData_16xrstb" name="Loan Term" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="aprovalLevelEvaluationDRD">
+        <dc:Bounds height="80" width="180" x="230" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0w190st" dmnElementRef="InputData_1wh6m47">
+        <dc:Bounds height="45" width="125" x="157" y="297" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1w5xwax" dmnElementRef="InformationRequirement_17vgiye">
+        <di:waypoint x="220" y="297" />
+        <di:waypoint x="290" y="180" />
+        <di:waypoint x="290" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_143brad" dmnElementRef="InputData_16xrstb">
+        <dc:Bounds height="45" width="125" x="347" y="297" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0584tiw" dmnElementRef="InformationRequirement_0y0egpz">
+        <di:waypoint x="410" y="297" />
+        <di:waypoint x="350" y="180" />
+        <di:waypoint x="350" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
