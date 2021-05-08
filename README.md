@@ -25,4 +25,4 @@ mvn spring-boot:run
 #### password: demo
 
 ## Authors and acknowledgment
-Loi Nguyen - thangloi2501@gmail.com
+Loi Nguyen - https://www.linkedin.com/in/loi-nguyen-thang/
