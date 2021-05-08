@@ -23,3 +23,6 @@ mvn spring-boot:run
 #### http://localhost:8080/
 #### username: demo
 #### password: demo
+
+## Authors and acknowledgment
+Loi Nguyen - thangloi2501@gmail.com
