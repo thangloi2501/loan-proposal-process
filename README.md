@@ -1,4 +1,5 @@
 # Loan Credit Proposal Process (Banking)
+https://travis-ci.org/thangloi2501/loan-proposal-process.svg?branch=master
 
 ![alt text](https://github.com/thangloi2501/loan-proposal-process/blob/master/loan-process.png?raw=true)
 
