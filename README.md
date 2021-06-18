@@ -1,5 +1,4 @@
-# Loan Credit Proposal Process (Banking)
-
+# Loan Credit Proposal Process (Banking) [![Build Status](https://travis-ci.org/thangloi2501/loan-proposal-process.svg?branch=master)](https://travis-ci.org/thangloi2501/loan-proposal-process.svg?branch=master)
 ![alt text](https://github.com/thangloi2501/loan-proposal-process/blob/master/loan-process.png?raw=true)
 
 ## Configure application DB
@@ -25,4 +24,4 @@ mvn spring-boot:run
 #### password: demo
 
 ## Authors and acknowledgment
-Loi Nguyen - thangloi2501@gmail.com
+Loi Nguyen - https://www.linkedin.com/in/loi-nguyen-thang/
