@@ -2,4 +2,6 @@ dist: trusty
 language: java
 jdk:
   - oraclejdk8
-script: mvn test
+script: 
+  - yarn upgrade
+  - mvn clean build
