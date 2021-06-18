@@ -1,5 +1,5 @@
 # Loan Credit Proposal Process (Banking)
-# travis-badge [![Build Status](https://travis-ci.org/thangloi2501/loan-proposal-process.svg?branch=master)](https://travis-ci.org/azu/travis-badge)
+[![Build Status](https://travis-ci.org/thangloi2501/loan-proposal-process.svg?branch=master)](https://travis-ci.org/azu/travis-badge)
 
 ![alt text](https://github.com/thangloi2501/loan-proposal-process/blob/master/loan-process.png?raw=true)
 
