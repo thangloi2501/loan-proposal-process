@@ -1,7 +1,5 @@
-# Loan Credit Proposal Process (Banking)
+# Loan Credit Proposal Process (Banking) ![alt text](https://github.com/thangloi2501/loan-proposal-process/blob/master/loan-process.png?raw=true)
 [![Build Status](https://travis-ci.org/thangloi2501/loan-proposal-process.svg?branch=master)](https://travis-ci.org/azu/travis-badge)
-
-![alt text](https://github.com/thangloi2501/loan-proposal-process/blob/master/loan-process.png?raw=true)
 
 ## Configure application DB
 Edit the below configuration in resources/application.yaml file
